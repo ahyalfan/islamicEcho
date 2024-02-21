@@ -31,4 +31,15 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'github' => [ //ini kita akan gunkan untuk melakukan login dengan github menggunakan package socialite
+        'client_id' => env('GITHUB_CLIENT_ID'),
+        'client_secret' => env('GITHUB_CLIENT_SECRET'),
+        'redirect' => '/auth/github/callback', //ini akan digunkaan untuk melakukan callback
+    ],
+    'google' => [ //ini kita akan gunkan untuk melakukan login dengan google menggunakan package socialite
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect' => '/auth/google/callback', //ini yg sudah kita setting agar kita dapat menggambil data user
+    ],
+
 ];
