@@ -10,8 +10,8 @@ use Tests\TestCase;
 class scrappingJsonTest extends TestCase
 {
    public function test_scrapping_json(){
-    $data = Http::get("https://raw.githubusercontent.com/kopen1/isline/master/src/data/surah/1.json");
+    $data = Http::get("https://raw.githubusercontent.com/kopen1/isline/master/src/data/listsurah.json");
     $this->assertEquals(200, $data->status());
-    \var_dump($data);
+    \var_dump($data[0]);
    }
 }
