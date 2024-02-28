@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('histories', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class,'user_id')->nullable(false);
+            $table->foreignIdFor(User::class,'user_id');
             $table->string('content_type')->nullable(false);
             $table->unsignedBigInteger('content_id')->nullable(false);
             $table->timestamps();

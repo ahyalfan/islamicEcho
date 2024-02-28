@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    /* proximanofa */
+    font-family: "proximanofa-black";
+    src: url("/public/fonts/Fontspring-DEMO-proximanovacond-black.otf");
+    font-family: "proximanofa-light";
+    src: url("/public/fonts/Fontspring-DEMO-proximanova-light.otf");
+    
+    /* amiri */
+    font-family: "amiri";
+    src: url("/public/fonts/Amiri/Amiri-Regular.ttf");
+
+    /* lalezar */
+    font-family: "lalezar";
+    src: url("/public/fonts/Lalezar/Lalezar-Regular.ttf");
+
+    /* lateef */
+    font-family: "lateef";
+    src: url("/public/fonts/Lateef/Lateef-Regular.ttf");
+}
