@@ -1,13 +1,19 @@
 <script setup>
 import { ref } from "vue";
+import Axios from "axios";
 import CategoriesLayout from "../../Layouts/CategoriesLayout.vue"
 
-import { usePage,Link } from "@inertiajs/vue3";
-import { router } from "@inertiajs/vue3";
-import Axios from "axios";
+import { usePage,Link, router } from "@inertiajs/vue3";
 
-const ayats = usePage().props.ayats;
 const user = usePage().props.auth.user;
+
+const doas = usePage().props.doas;
+const jumDoa = doas.length;
+const dataBookmarkDoa = usePage().props.dataBookmarkDoa;
+
+// defineProps({
+//     dataBookmarkDoa:Array
+// });
 
 // Fungsi untuk mengonversi angka Latin menjadi teks Arab
 const convertToArabic = (number) => {
@@ -43,11 +49,9 @@ const convertToArabic = (number) => {
         qoryData.value = nilai
     };
 
-
-// fitur bookmark
-const dataBookmarkDoa = usePage().props.dataBookmarkDoa;
-const dataBookmarkDoa2 = ref(dataBookmarkDoa)
-    const deleteBookmark = async (index,user,itemId,type)=>{
+    // fitur bookmark
+    const dataBookmarkDoa2 = ref(dataBookmarkDoa)
+    const deleteBookmark = async (index,user,itemId,doaId,type)=>{
      if(user == null){
         return router.get("/login")
      }
@@ -55,6 +59,7 @@ const dataBookmarkDoa2 = ref(dataBookmarkDoa)
             const response = await Axios.post('/categories/delete-bookmark', {
                 id: itemId,
                 type: type,
+                typeId: doaId
             });
             dataBookmarkDoa2.value[index] = false
             console.log(response.data.message);
@@ -62,7 +67,7 @@ const dataBookmarkDoa2 = ref(dataBookmarkDoa)
             console.error("Error deleting bookmark:", error);
         }
     }
-    const addBookmark = async (index,user,itemId,type)=>{
+    const addBookmark = async (index,user,itemId,doaId,type)=>{
      if(user == null){
         return router.get("/login")
      }
@@ -70,6 +75,7 @@ const dataBookmarkDoa2 = ref(dataBookmarkDoa)
             const response = await Axios.post('/categories/add-bookmark', {
                 id: itemId,
                 type: type,
+                typeId: doaId
             });
             dataBookmarkDoa2.value[index] = true
             console.log(response.data.message);
@@ -78,9 +84,9 @@ const dataBookmarkDoa2 = ref(dataBookmarkDoa)
         }
     }
 
-const goBack = ()=>{
-    window.history.back();
-}
+    const goBack = ()=>{
+        window.history.back();
+    };
 ;</script>
 <template>
     <CategoriesLayout @font="fontSizez" @qory="qory" @terjemahan="terjemahan" @latin="latin">
@@ -94,31 +100,27 @@ const goBack = ()=>{
         </template>
 
         <ul>
-            <li v-if="fontData.fontSize !=''" v-for="(ayat, index) in ayats" :key="ayat.id" class="mt-6 mx-4" :style="fontData" :id="ayat.id">
-                <div class="text-center mb-5 text-xl" v-if="ayat.nomer_ayat == 1">
-                    <h5 class="font-lateef text-bold" style="font-size: 3rem;">{{ ayat.surat.arab }}</h5>
-                    <h1 class="font-lalezar">{{ ayat.surat.indo }}</h1>
-                    <p>{{ ayat.surat.golongan +' - '+ ayat.surat.jum_ayat}}</p>
+            <li>
+                <div class="text-center text-xl">
+                    <h5 class="font-lateef text-bold" style="font-size: 3rem;">{{ doas[0].categori_doa.slug }}</h5>
+                    <p class="text-slate-600">{{ jumDoa }} Bacaan</p>
                 </div>
+            </li>
+            <li v-if="fontData.fontSize !=''" v-for="(item, index) in doas" :key="item.id" class="mt-6 mx-4" :style="fontData" :id="item.id">
                 <div>
                     <nav class="flex mb-5">
-                        <div class="basis-1/3 flex justify-around items-center">
-                            <p style="font-size: 1.3rem;">{{ ayat.surat.nomer_surah+':'+ayat.nomer_ayat }}</p>
-                            <Link :href="route('categories.alquran.getdetailtafsir',[ayat.surat_id,ayat.nomer_ayat])">
-                                <img class="w-5 h-6 focus:shadow-md hover:shadow-md shadow-black" src="/img/logo/book.svg" alt="">
-                            </Link>
-                            <img v-if="dataBookmarkDoa2[index]" class="w-5 h-5 pt-1" src="/img/logo/bookmark-biru.svg" alt="" @click="deleteBookmark(index,user,ayat.id,ayat.type)">
-                            <img v-else @click="addBookmark(index,user,ayat.id,ayat.type)" class="w-5 h-5 pt-1" src="/img/logo/bookmark.svg" alt="">
+                        <div class="basis-2/3 flex justify-around items-center">
+                            <p style="font-size: 1.3rem;" class="mr-2 basis-2/3">{{ item.title }}</p>
+                            <img v-if="dataBookmarkDoa2[index]" class="w-5 h-5 pt-1" src="/img/logo/bookmark-biru.svg" alt="" @click="deleteBookmark(index,user,item.id,item.category_id,item.type)">
+                            <img v-else @click="addBookmark(index,user,item.id,item.category_id,item.type)" class="w-5 h-5 pt-1" src="/img/logo/bookmark.svg" alt="">
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
                                 </svg>
                             </span>
                         </div>
-                        <div class="basis-2/3 flex justify-end">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
-                            </svg>
+                        <div class="text-end basis-1/3 text-slate-600">
+                            {{index + 1}}/{{ jumDoa }}
                         </div>
                     </nav>
                     <main>
@@ -129,38 +131,28 @@ const goBack = ()=>{
                                 </div>
                                 <p class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">{{ convertToArabic(ayat.nomer_ayat) }}</p>
                             </div>  -->
-                            {{ ayat.arab }}
+                            {{ item.arab }}
                         </h6>
-                        <p v-show="latinData == false" class="text-biru_font tracking-wide" v-html="ayat.latin"></p>
-                        <p v-show="terjemahanData == false" >{{ ayat.indo }}</p>
+                        <p v-show="latinData == false" class="text-biru_font tracking-wide" v-html="item.latin"></p>
+                        <p v-show="terjemahanData == false">{{ item.indo }}</p>
                     </main>
                 </div>
             </li>
-            <li v-else v-for="(ayat, index) in ayats" class="mt-6 mx-4" style="font-size:1rem;" :id="ayat.id">
-                <div class="text-center mb-5 text-xl" v-if="ayat.nomer_ayat == 1">
-                    <h5 class="font-lateef font-bold" style="font-size: 3rem;">{{ ayat.surat.arab }}</h5>
-                    <h1 class="font-lalezar">{{ ayat.surat.indo }}</h1>
-                    <p>{{ ayat.surat.golongan +' - '+ ayat.surat.jum_ayat}}</p>
-                </div>
+            <li v-else v-for="(item, index) in doas" class="mt-6 mx-4" style="font-size:1rem;" :id="item.id">
                 <div>
                     <nav class="flex mb-5">
-                        <div class="basis-1/3 flex justify-around items-center">
-                            <p style="font-size: 1.3rem;">{{ ayat.surat.nomer_surah+':'+ayat.nomer_ayat }}</p>
-                            <Link :href="route('categories.alquran.getdetailtafsir',[ayat.surat_id,ayat.nomer_ayat])">
-                                <img class="w-5 h-6 focus:shadow-md hover:shadow-md shadow-black" src="/img/logo/book.svg" alt="">
-                            </Link>
-                            <img v-if="dataBookmarkDoa2[index]" class="w-5 h-5 pt-1" src="/img/logo/bookmark-biru.svg" alt="" @click="deleteBookmark(index,user,ayat.id,ayat.type)">
-                            <img v-else @click="addBookmark(index,user,ayat.id,ayat.type)" class="w-5 h-5 pt-1" src="/img/logo/bookmark.svg" alt="">
+                        <div class="basis-2/3 flex justify-around">
+                            <p style="font-size: 1.3rem;" class="mr-2 basis-2/3">{{ item.title }}</p>
+                            <img v-if="dataBookmarkDoa2[index]" class="w-5 h-5 pt-1" src="/img/logo/bookmark-biru.svg" alt="" @click="deleteBookmark(index,user,item.id,item.category_id,item.type)">
+                            <img v-else @click="addBookmark(index,user,item.id,item.category_id,item.type)" class="w-5 h-5 pt-1" src="/img/logo/bookmark.svg" alt="">
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
                                 </svg>
                             </span>
                         </div>
-                        <div class="basis-2/3 flex justify-end">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
-                            </svg>
+                        <div class="text-end basis-1/3 text-slate-600">
+                            {{index + 1}}/{{ jumDoa }}
                         </div>
                     </nav>
                     <main>
@@ -171,10 +163,10 @@ const goBack = ()=>{
                                 </div>
                                 <p class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">{{ convertToArabic(ayat.nomer_ayat) }}</p>
                             </div>  -->
-                            {{ ayat.arab }}
+                            {{ item.arab }}
                         </h6>
-                        <p v-show="latinData == false" class="text-biru_font tracking-wide" v-html="ayat.latin"></p>
-                        <p  v-show="terjemahanData == false">{{ ayat.indo }}</p>
+                        <p v-show="latinData == false" class="text-biru_font tracking-wide" v-html="item.latin"></p>
+                        <p v-show="terjemahanData == false">{{ item.indo }}</p>
                     </main>
                 </div>
             </li>

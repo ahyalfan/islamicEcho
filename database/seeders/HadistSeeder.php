@@ -19,12 +19,18 @@ class HadistSeeder extends Seeder
         $response->getBody();
         $response = json_decode($response, true);
         foreach($response as $value){
-            Hadist::create([
+            // Hadist::create([
+            //     "hadist_collection_id"=> 1,
+            //     "nomer"=> $value["number"],
+            //     "arab"=> $value["arab"],
+            //     "indo"=> $value["id"],
+            // ]);
+            $data[]=[
                 "hadist_collection_id"=> 1,
                 "nomer"=> $value["number"],
                 "arab"=> $value["arab"],
                 "indo"=> $value["id"],
-            ]);
+            ];
         }
 
         // ahmad
@@ -32,12 +38,18 @@ class HadistSeeder extends Seeder
         $response->getBody();
         $response = json_decode($response, true);
         foreach($response as $value){
-            Hadist::create([
+            // Hadist::create([
+            //     "hadist_collection_id"=> 2,
+            //     "nomer"=> $value["number"],
+            //     "arab"=> $value["arab"],
+            //     "indo"=> $value["id"],
+            // ]);
+            $data[]=[
                 "hadist_collection_id"=> 2,
                 "nomer"=> $value["number"],
                 "arab"=> $value["arab"],
                 "indo"=> $value["id"],
-            ]);
+            ];
         }
 
         // bukhari
@@ -45,12 +57,18 @@ class HadistSeeder extends Seeder
         $response->getBody();
         $response = json_decode($response, true);
         foreach($response as $value){
-            Hadist::create([
+            // Hadist::create([
+            //     "hadist_collection_id"=> 3,
+            //     "nomer"=> $value["number"],
+            //     "arab"=> $value["arab"],
+            //     "indo"=> $value["id"],
+            // ]);
+            $data[]=[
                 "hadist_collection_id"=> 3,
                 "nomer"=> $value["number"],
                 "arab"=> $value["arab"],
                 "indo"=> $value["id"],
-            ]);
+            ];
         }
 
         // darimi
@@ -58,12 +76,18 @@ class HadistSeeder extends Seeder
         $response->getBody();
         $response = json_decode($response, true);
         foreach($response as $value){
-            Hadist::create([
+            // Hadist::create([
+            //     "hadist_collection_id"=> 4,
+            //     "nomer"=> $value["number"],
+            //     "arab"=> $value["arab"],
+            //     "indo"=> $value["id"],
+            // ]);
+            $data[]=[
                 "hadist_collection_id"=> 4,
                 "nomer"=> $value["number"],
                 "arab"=> $value["arab"],
                 "indo"=> $value["id"],
-            ]);
+            ];
         }
 
         // ibnu-majah
@@ -71,12 +95,18 @@ class HadistSeeder extends Seeder
         $response->getBody();
         $response = json_decode($response, true);
         foreach($response as $value){
-            Hadist::create([
+            // Hadist::create([
+            //     "hadist_collection_id"=> 5,
+            //     "nomer"=> $value["number"],
+            //     "arab"=> $value["arab"],
+            //     "indo"=> $value["id"],
+            // ]);
+            $data[]=[
                 "hadist_collection_id"=> 5,
                 "nomer"=> $value["number"],
                 "arab"=> $value["arab"],
                 "indo"=> $value["id"],
-            ]);
+            ];
         }
 
         // malik
@@ -84,12 +114,18 @@ class HadistSeeder extends Seeder
         $response->getBody();
         $response = json_decode($response, true);
         foreach($response as $value){
-            Hadist::create([
+            // Hadist::create([
+            //     "hadist_collection_id"=> 6,
+            //     "nomer"=> $value["number"],
+            //     "arab"=> $value["arab"],
+            //     "indo"=> $value["id"],
+            // ]);
+            $data[]=[
                 "hadist_collection_id"=> 6,
                 "nomer"=> $value["number"],
                 "arab"=> $value["arab"],
                 "indo"=> $value["id"],
-            ]);
+            ];
         }        
 
         // muslim
@@ -97,12 +133,18 @@ class HadistSeeder extends Seeder
         $response->getBody();
         $response = json_decode($response, true);
         foreach($response as $value){
-            Hadist::create([
+            // Hadist::create([
+            //     "hadist_collection_id"=> 7,
+            //     "nomer"=> $value["number"],
+            //     "arab"=> $value["arab"],
+            //     "indo"=> $value["id"],
+            // ]);
+            $data[]=[
                 "hadist_collection_id"=> 7,
                 "nomer"=> $value["number"],
                 "arab"=> $value["arab"],
                 "indo"=> $value["id"],
-            ]);
+            ];
         } 
 
         // nasai
@@ -110,12 +152,18 @@ class HadistSeeder extends Seeder
         $response->getBody();
         $response = json_decode($response, true);
         foreach($response as $value){
-            Hadist::create([
+            // Hadist::create([
+            //     "hadist_collection_id"=> 8,
+            //     "nomer"=> $value["number"],
+            //     "arab"=> $value["arab"],
+            //     "indo"=> $value["id"],
+            // ]);
+            $data[]=[
                 "hadist_collection_id"=> 8,
                 "nomer"=> $value["number"],
                 "arab"=> $value["arab"],
                 "indo"=> $value["id"],
-            ]);
+            ];
         }      
 
         // tirmidzi
@@ -123,12 +171,22 @@ class HadistSeeder extends Seeder
         $response->getBody();
         $response = json_decode($response, true);
         foreach($response as $value){
-            Hadist::create([
+            // Hadist::create([
+            //     "hadist_collection_id"=> 9,
+            //     "nomer"=> $value["number"],
+            //     "arab"=> $value["arab"],
+            //     "indo"=> $value["id"],
+            // ]);
+            $data[]=[
                 "hadist_collection_id"=> 9,
                 "nomer"=> $value["number"],
                 "arab"=> $value["arab"],
                 "indo"=> $value["id"],
-            ]);
-        }      
+            ];
+        } 
+        
+        foreach (\array_chunk($data,5000) as $value) {
+            Hadist::insert($value);
+        }
     }
 }

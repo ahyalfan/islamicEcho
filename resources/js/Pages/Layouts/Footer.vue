@@ -9,7 +9,13 @@
                   <img src="/img/logo/logo-1.svg" class="h-10 me-3 rounded-md" alt="IslamicEcho" />
                   <span class="self-center font-lalezar text-2xl font-semibold whitespace-nowrap dark:text-white">Islamic Echo</span>
               </a>
-              <p class="ml-2 mt-4 dark:text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis assumenda iure accusantium porro, sint error, consequatur veniam exercitationem aperiam quam est eum corrupti, quae soluta eaque non optio! Omnis, dolorum.</p>
+                <p class="ml-2 mt-4 dark:text-white">
+                    Assalamualaikum wa rahmatullahi wa barakatuhu,   
+                To bring to your attention, I am managing and organizing the site alone. To keep the site working, I request everyone to please fund for our site! In Sha Allah this will be counted in Sadqah e jaariyah and everyone will be immensely rewarded for it too…
+                And May Allah grant me the strength to put in my best efforts for this website to spread Islamic knowledge all over the world…
+                Please donate via the information provided below
+                جزاك الله خيرًا
+                </p>
           </div>
           <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3 ml-2">
               <div>
@@ -49,7 +55,7 @@
       </div>
       <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
       <div class="sm:flex sm:items-center sm:justify-between">
-          <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a href="https://flowbite.com/" class="hover:underline">Flowbite™</a>. All Rights Reserved.
+          <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2024 <a href="https://ahyalfan.my.id/" class="hover:underline">ahyalfan™</a>. All Rights Reserved.
           </span>
           <div class="flex mt-4 sm:justify-center sm:mt-0">
               <a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">

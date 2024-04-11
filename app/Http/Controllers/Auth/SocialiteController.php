@@ -23,7 +23,7 @@ class SocialiteController extends Controller
             $user = User::where("email",'=', $socialUser->email)->first();
             if($user){
                 Auth::login($user);
-                return redirect()->route('dashboard')->with('success','Success Login');
+                return redirect()->route('home')->with('success','Success Login');
             }else{
                 $passwordNew = Str::random(12);
                 $user = User::Create([
@@ -40,7 +40,7 @@ class SocialiteController extends Controller
                             'name' => $socialUser->name,
                         ]);
                         Auth::login($user);
-                        return redirect()->route('dashboard')->with('success','Success Login');
+                        return redirect()->route('home')->with('success','Success Login');
             }
         } catch (\Exception $th) {
             return \redirect()->route('login')->with('error', $th->getMessage());

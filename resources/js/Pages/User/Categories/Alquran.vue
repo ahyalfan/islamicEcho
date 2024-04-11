@@ -37,12 +37,12 @@ const qurans = computed(()=>usePage().props.surat); //jika data tidak berubah ub
         </template>
 
         <!-- jika yg tanpa name bisa langsung tanpa template -->
-        <div class="mx-4">
+        <div class="mx-5">
             <ul v-if="button == false">
-                <Link :href="route('categories.alquran.getdetail',item.id)" v-for="(item, index) in qurans" :key="index" class="mb-4 flex items-center border rounded-md bg-gray-100 md:grid md:grid-cols-3 md:gap-3 dark:bg-gray-800 dark:text-white">
-                    <h4 class="basis-1/6 text-center">{{ item.nomer_surah }}</h4>
+                <Link :href="route('categories.alquran.getdetail',item.id)" v-for="(item, index) in qurans" :key="index" class="mb-4 flex items-center border rounded-md bg-gray-100 md:grid md:grid-cols-3 md:gap-3 dark:bg-gray-800 dark:text-white hover:bg-biru_background focus:bg-biru_background">
+                    <h4 class="basis-1/6 text-center font-semibold text-biru_font bg-biru_background py-3">{{ item.nomer_surah }}</h4>
                     <div class="basis-2/3 pl-2">
-                        <h6>{{ item.indo }}</h6>
+                        <h6 class="font-semibold text-biru_font">{{ item.indo }}</h6>
                         <p>{{ item.arti }}</p>
                     </div>
                     <div class="basis-1/6 text-center">

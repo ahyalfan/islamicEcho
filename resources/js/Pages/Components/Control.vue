@@ -1,6 +1,6 @@
 <script setup>
 import { usePage } from '@inertiajs/vue3';
-import { computed,ref,onMounted } from 'vue';
+import { computed,ref,onMounted,Transition } from 'vue';
 
 // paralax setup
 const posisitionBefore = ref(50);
@@ -36,35 +36,35 @@ const hidden = ()=> {
 };
 const dataqori = [
     {
-        "value":"alafasy",
+        "value":"https://cdn.islamic.network/quran/audio/128/ar.alafasy/",
         "label":"alafasy"
     },
     {
-        "value":"ahmedajamy",
+        "value":"https://cdn.islamic.network/quran/audio/128/ar.ahmedajamy/",
         "label":"ahmedajamy"
     },
     {
-        "value":"husarymujawwad",
+        "value":"https://cdn.islamic.network/quran/audio/128/ar.husarymujawwad/",
         "label":"husarymujawwad"
     },
     {
-        "value":"minshawi",
+        "value":"https://cdn.islamic.network/quran/audio/128/ar.minshawi/",
         "label":"minshawi"
     },
     {
-        "value":"muhammadayyoub",
+        "value":"https://cdn.islamic.network/quran/audio/128/ar.muhammadayyoub/",
         "label":"muhammadayyoub"
     },
     {
-        "value":"muhammadjibreel",
+        "value":"https://cdn.islamic.network/quran/audio/128/ar.muhammadjibreel/",
         "label":"muhammadjibreel"
     },
 ]
 
 // value pengaturan
 const font = ref("");
-const latin= ref(false);
-const terjemahan= ref(false);
+const latin= ref(true);
+const terjemahan= ref(true);
 const qory = ref("");
 // end tools
 
@@ -75,6 +75,7 @@ const changeFont = (nilai)=>{
 };
 const changeLatin = (nilai)=>{
     emit('latin',nilai)
+
 };
 const changeTerjemahan = (nilai)=>{
     emit('terjemahan',nilai)
@@ -92,7 +93,7 @@ onMounted(() => {
 
 <template>
 
-<div class="w-full h-[4.5rem]"></div>
+<div class="w-full h-[4.5rem] transition duration-1000"></div>
 
 <section class="flex pt-3 px-3 mb-6 bg-white dark:bg-gray-800 dark:text-white border-b-2 border-biru_bacground2 pb-3 transition-all duration-200 sticky top-0 z-10" :style="'transform: '+navShow">
     <div class="basis-11/12">
@@ -106,32 +107,40 @@ onMounted(() => {
     </div>
 
 </section>
-<div v-show="tools" @click.self="hidden" class="fixed bottom-0 top-0 left-0 right-0 z-20"></div>
-<div v-show="tools" :class="toolsPosisition + ' border z-30 rounded-md shadow-md fixed right-12 w-1/2 py-5 px-2 md:w-1/3 md:h-1/3 bg-slate-100'">
-    <ul>
-        <li>
+<div v-show="tools" @click.self="hidden" class="fixed bottom-0 top-0 left-0 right-0 z-20 transition duration-500"></div>
+<Transition name="fade" v-show="tools" :class="toolsPosisition + ' border z-30 rounded-md shadow-md fixed right-12 w-1/2 py-5 px-2 md:w-1/3 md:h-1/3 bg-slate-100'">
+    <ul class="transition duration-200">
+        <li class="text-xl font-semibold mb-3">
             <h4>Pengaturan</h4>
         </li>
-        <li>
+        <li class="text-md">
             <label>Ukuran font</label>
-            <el-input-number min="-2" placeholder="0" max="3" v-model="font" value="2" @input="changeFont(font)" size="small"/>
+            <el-input-number min="-2" placeholder="0" max="3" v-model="font" @input="changeFont(font)" size="small"/>
             <!-- <input v-model="font" @input="changeFont(font)" type="number" value="1"> -->
         </li>
         <li>
             <label>Transliterasi (Latin)</label>
-            <label @click="changeLatin(latin)" for="toogle"> toogle</label>
             <input v-model="latin" type="checkbox" id="toogle" class="hidden">
+            <label @click="changeLatin(latin)" for="toogle">
+                <div class="w-10 h-5 bg-biru_bacground2 rounded-full flex items-center justify-end">
+                    <span class="w-3 h-3 rounded-full bg-white mr-1 transition duration-200"></span>
+                </div>
+            </label>
         </li>
         <li>
             <label>Terjemahan Bahasa</label>
-            <label @click="changeTerjemahan(terjemahan)" for="toogle2"> toogle2</label>
             <input v-model="terjemahan" type="checkbox" id="toogle2" class="hidden">
+            <label @click="changeTerjemahan(terjemahan)" for="toogle2"> 
+                <div class="w-10 h-5 bg-biru_bacground2 rounded-full flex items-center justify-end">
+                    <span class="w-3 h-3 rounded-full bg-white mr-1 transition duration-200"></span>
+                </div>
+            </label>
         </li>
         <li class="px-2">
             <h4 class="">Pilih qori</h4>
             <el-select
                 v-model="qory"
-                class=""
+                class="text-black"
                 placeholder="Select"
                 size="small"
                 style="width: "
@@ -142,10 +151,31 @@ onMounted(() => {
                 :key="item.value"
                 :label="item.label"
                 :value="item.value"
+                class="text-black"
                 />
             </el-select>
         </li>
     </ul>
-</div>
+</Transition>
 
 </template>
+
+<style scoped>
+    #toogle:checked + label span{
+        transform:translateX(-1.2rem) ;
+    }
+    #toogle2:checked + label span{
+        transform:translateX(-1.2rem) ;
+    }
+
+    .fade-enter-active,
+    .fade-leave-active {
+    transition: all 0.2s ease;
+    }
+
+    .fade-enter-from,
+    .fade-leave-to {
+    opacity: 0;
+    transform:translateY(2.5rem);
+    }
+</style>

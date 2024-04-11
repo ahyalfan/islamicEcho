@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('audio_ayats', function (Blueprint $table) {
             $table->id();
             $table->string('type')->default('audio');
-            $table->foreignIdFor(Ayat::class,"ayat_id");
+            $table->foreignIdFor(Ayat::class,"ayat_id")->references('id')->on('ayats');
             $table->string("qori_name")->default("");//berisi yg mensuarkan audionya
             $table->string("path_audio")->nullable();
             $table->string('slug')->nullable();

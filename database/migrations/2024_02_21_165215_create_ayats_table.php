@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('ayats', function (Blueprint $table) {
             $table->id();
             $table->string('type')->default('ayat');
-            $table->foreignIdFor(Surat::class,'surat_id');
+            $table->foreignIdFor(Surat::class,'surat_id')->references('id')->on('surats');
             $table->integer('nomer_ayat')->default(0);
             $table->integer('juz');
             $table->integer('page'); //ini untuk halaman yg sama kayak alquran asli

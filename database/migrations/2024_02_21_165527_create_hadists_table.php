@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('hadists', function (Blueprint $table) {
             $table->id();
             $table->string('type')->default('hadist');
-            $table->foreignIdFor(HadistCollection::class,'hadist_collection_id');
+            $table->foreignIdFor(HadistCollection::class,'hadist_collection_id')->references('id')->on('hadist_collections');
             $table->integer('nomer')->nullable();
             $table->text('arab')->default('');
             $table->text('indo')->default('');

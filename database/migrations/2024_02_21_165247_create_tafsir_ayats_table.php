@@ -16,7 +16,8 @@ return new class extends Migration
         Schema::create('tafsir_ayats', function (Blueprint $table) {
             $table->id();
             $table->string('type')->default('tafsir');
-            $table->foreignIdFor(Ayat::class,"ayat_id");
+            $table->foreignIdFor(Ayat::class,"ayat_id")->references('id')->on('ayats');
+            $table->integer("surah")->nullable()->default(0);
             $table->string("jenis_tafsir")->default("");//berisi wajiz atau tahlili
             $table->text("description")->nullable();
             $table->string('slug')->nullable();

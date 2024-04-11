@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
@@ -36,5 +37,11 @@ class Doa extends Model
     public function categori_doa():BelongsTo
     {
         return $this->belongsTo(CategoryDoa::class,'category_id');
+    }
+
+    // bookmark
+    public function bookmark():HasMany
+    {
+        return $this->hasMany(Bookmark::class,'doa_id','id');
     }
 }

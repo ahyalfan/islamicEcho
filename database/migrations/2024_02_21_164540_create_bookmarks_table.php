@@ -15,7 +15,7 @@ return new class extends Migration
         // bookmark
         Schema::create('bookmarks', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class,'user_id');
+            $table->foreignIdFor(User::class,'user_id')->references('id')->on('users');
             $table->string('content_type')->nullable(false);
             $table->unsignedBigInteger('content_id')->nullable(false);
             $table->timestamps();

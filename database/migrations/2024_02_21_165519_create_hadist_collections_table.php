@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('type')->default('hadist_collection');
             $table->string('category_name')->default('');
-            $table->string('slug')->default('');
+            $table->string('slug')->nullable()->default('');
             $table->timestamps();
         });
     }

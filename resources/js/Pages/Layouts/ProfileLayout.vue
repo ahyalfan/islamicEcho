@@ -15,10 +15,6 @@ import Main from "./Main.vue";
 <!-- main -->
 <Main></Main>
 <!-- main end -->
-
-<!-- footer -->
-<Footer></Footer>
-<!-- footer end -->
 </div>
 
 

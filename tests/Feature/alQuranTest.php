@@ -33,7 +33,7 @@ class alQuranTest extends TestCase
         // Mengonversi body menjadi format JSON
         $jsonData = json_decode($body, true);
         $jsonData2 = json_decode($body2, true);
-        assertNull($jsonData);
+        // assertNull($jsonData);
 
         foreach ($jsonData as $index => $surat) {
             // \var_dump($surat) ;
@@ -245,14 +245,14 @@ class alQuranTest extends TestCase
         $response = json_decode($response, true);
         \var_dump($response);
         assertTrue(true);
-        // foreach($response as $value){
-        //     Tahlil::create([
-        //         "no"=> $value["no"],
-        //         "judul"=> $value["judul"],
-        //         "indo"=> $value["id"],
-        //         "arab"=> $value["arab"],
-        //     ]);
-        // }
+        foreach($response as $value){
+            Tahlil::create([
+                "no"=> $value["no"],
+                "judul"=> $value["judul"],
+                "indo"=> $value["id"],
+                "arab"=> $value["arab"],
+            ]);
+        }
     }
 
 }

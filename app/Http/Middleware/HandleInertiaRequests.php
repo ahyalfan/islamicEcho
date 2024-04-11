@@ -2,7 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Bookmark;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Middleware;
 use Tightenco\Ziggy\Ziggy;
 
@@ -39,8 +41,12 @@ class HandleInertiaRequests extends Middleware
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),
             ],
+            "bookmark" => [
+                "data"=> Bookmark::get(),
+            ],
             'flash'=>[
-
+                "error"=> $request->session()->get("error"),
+                "success"=> $request->session()->get("success","value"),
             ],
         ];
     }

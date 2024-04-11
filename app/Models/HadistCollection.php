@@ -10,6 +10,12 @@ class HadistCollection extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        "type",
+        "category_name",
+        "slug",
+    ];
+
     public function hadist():HasMany
     {
         return $this->hasMany(Hadist::class,'hadist_collection_id');

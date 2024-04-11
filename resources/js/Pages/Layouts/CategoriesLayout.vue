@@ -8,7 +8,7 @@ import { onMounted } from 'vue';
 
     // data dari childern
     // disini kita akan kirim dari childern ke parent, jadi kita akan emit sekali lagi
-    const emit = defineEmits(['font','latin','terjemahan','qory']);
+    const emit = defineEmits(['font','latin','terjemahan','qory','jeda','exit']);
     const fontSize = (nilai) => {
         switch(nilai) {
             case -2:
@@ -41,6 +41,17 @@ import { onMounted } from 'vue';
     const qory = (nilai) => {
         emit('qory',nilai)
     };
+
+    // buat audio
+    const lanjutkan = (nilai) => {
+        emit('jeda',nilai)
+    }
+    const close = (nilai) => {
+        emit('exit',nilai)
+    }
+
+    // send data lewat propss
+    defineProps(['sendData','sendJudul'])
     
 onMounted(()=>{
 });
@@ -59,7 +70,7 @@ onMounted(()=>{
 <!-- Control end-->
     <slot></slot> <!-- slot default -->
 <!-- main -->
-<Main></Main>
+<Main @jeda="lanjutkan" :sendData2="sendData" :sendJudul2="sendJudul" @exit="close"></Main>
 <!-- mainend -->
 
 <!-- Footer -->

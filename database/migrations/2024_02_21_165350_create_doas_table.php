@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('doas', function (Blueprint $table) {
             $table->id();
             $table->string('type')->default('doa');
-            $table->foreignIdFor(CategoryDoa::class,'category_id');
+            $table->foreignIdFor(CategoryDoa::class,'category_id')->references('id')->on('category_doas');
             $table->string('title')->nullable(false);
             $table->text('indo');
             $table->text('arab');

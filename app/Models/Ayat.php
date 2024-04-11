@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Ayat extends Model
 {
@@ -37,5 +38,11 @@ class Ayat extends Model
     public function audio():HasMany
     {
         return $this->hasMany(AudioAyat::class,'ayat_id','id');
+    }
+
+    // bookmark
+    public function bookmark():HasMany
+    {
+        return $this->hasMany(Bookmark::class,'ayat_id','id');
     }
 }
