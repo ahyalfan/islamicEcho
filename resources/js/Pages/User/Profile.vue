@@ -8,7 +8,7 @@ const user = usePage().props.user;
 
 const teksToCopy = ref(null);
 const copyText = ()=>{
-    const teks = 'https://islamicEcho.my.id';
+    const teks = 'https://islamicEcho.42web.io';
       const tempInput = document.createElement('input');
       tempInput.value = teks;
       document.body.appendChild(tempInput);
